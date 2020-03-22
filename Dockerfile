@@ -1,5 +1,5 @@
 FROM alpine:edge
-LABEL maintainer="dev@jpillora.com"
+LABEL maintainer="mg@michaelgoldstein.co"
 # webproc release settings
 ENV WEBPROC_VERSION 0.2.2
 ENV WEBPROC_URL https://github.com/jpillora/webproc/releases/download/$WEBPROC_VERSION/webproc_0.3.3_linux_arm64.gz
