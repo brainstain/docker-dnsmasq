@@ -1,9 +1,8 @@
-FROM alpine:edge
+FROM alpine
 LABEL maintainer="mg@michaelgoldstein.co"
 # webproc release settings
 ENV WEBPROC_VERSION v0.3.3
-ENV WEBPROC_URL https://github.com/jpillora/webproc/releases/download/$WEBPROC_VERSION/webproc_0.3.3_linux_arm64.gz
-
+ENV WEBPROC_URL https://github.com/jpillora/webproc/releases/download/$WEBPROC_VERSION/webproc_0.3.3_linux_armv6.gz
 # fetch dnsmasq and webproc binary
 RUN apk update \
 	&& apk --no-cache add dnsmasq \
@@ -15,5 +14,6 @@ RUN apk update \
 #RUN mkdir -p /etc/default/
 #RUN echo -e "ENABLED=1\nIGNORE_RESOLVCONF=yes" > /etc/default/dnsmasq
 #COPY dnsmasq.conf /etc/dnsmasq.conf
+RUN addgroup -S appgroup && adduser -D -H -S appuser -G appgroup
 #run!
-ENTRYPOINT ["webproc","--config","/etc/dnsmasq.conf","--","dnsmasq","--no-daemon"]
+ENTRYPOINT ["webproc","--","dnsmasq","--no-daemon","--user=appuser","--group=appgroup"]
